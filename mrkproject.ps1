@@ -4,258 +4,151 @@ Add-Type -AssemblyName PresentationFramework
 
 # Step 2: Define XAML content
 $XAML = @"
-<Window 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="mr. K" 
-    Width="1200" Height="800"
-    Background="#1E1E1E"
-    ResizeMode="NoResize">
+    <Window 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="mr. K Winutil" 
+        Width="1200" Height="800"
+        Background="Black"
+        ResizeMode="NoResize">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
+        <Grid>
+            <!-- Row Definitions -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
 
-        <!-- Title Header -->
-        <Grid Grid.Row="0" Background="#2E2E2E">
-            <TextBlock Text="Developed by mr.K for your bullst activities" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="White"/>
-        </Grid>
+            <!-- Title Header with Glowing Effect -->
+            <Grid Grid.Row="0" Background="#1A1A1A">
+                <TextBlock 
+                    Text="Developed by mr.K - for your bullst activities"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    FontWeight="Bold" FontSize="24" 
+                    Foreground="Red" Opacity="0.9">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Red" BlurRadius="10" ShadowDepth="0"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <!-- First Column -->
-        <Grid Grid.Row="1" Background="#333333">
-            <!-- Inner grid for additional columns -->
-            <Grid>
+            <!-- Main Content Area -->
+            <Grid Grid.Row="1" Background="#121212">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="300" />
                 </Grid.ColumnDefinitions>
-                
-                <!-- First column -->
-                <Border Grid.Column="0" BorderBrush="White" BorderThickness="1" Background="#1E1E1E">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock Text="Utilities" Foreground="White" FontWeight="Bold" FontSize="20"/>
-                        <ListBox x:Name="UtilitiesCheckList" Foreground="White" Background="#1E1E1E" BorderThickness="0">
-                            <ListBoxItem>
-                                <CheckBox Content="Create Restore Point" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Clear DNS Cache" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Run Disk Clean Up" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Delete Temporary Files" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Delete System Logs" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Disable Searchbar" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Enable Searchbar" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Disable Activity History" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Disable Location Tracking" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Disable Teredo" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Disable Hibernation" Foreground="White"/>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <CheckBox Content="Set Display for Performance" Foreground="White"/>
-                            </ListBoxItem>
+
+                <!-- Utilities Panel -->
+                <Border Grid.Column="0" CornerRadius="10" Background="#1F1F1F" Margin="10" BorderBrush="Red" BorderThickness="2">
+                    <StackPanel>
+                        <TextBlock Text="Utilities" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
+                        <ListBox x:Name="UtilitiesCheckList" Background="#1F1F1F" Foreground="White" BorderThickness="0">
+                            <ListBoxItem><CheckBox Content="Create Restore Point" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Clear DNS Cache" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Run Disk Clean Up" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Delete Temporary Files" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Delete System Logs" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Disable Searchbar" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Enable Searchbar" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Disable Activity History" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Disable Location Tracking" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Disable Teredo" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Disable Hibernation" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Set Display for Performance" Foreground="White"/></ListBoxItem>
                         </ListBox>
-						<!-- StackPanel for buttons at the bottom -->
-						<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5">
-							<Button x:Name="ClearSelectionButton" Content="Clear Selection" Margin="0,10,0,0"/>
-							<Button x:Name="RunTweaksButton" Content="Run Tweaks" Margin="10,10,0,0"/>
-						</StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                            <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                            <Button x:Name="RunTweaksButton" Content="Run Tweaks" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
-                
 
-<Border Grid.Column="1" BorderBrush="White" BorderThickness="1" Background="#1E1E1E">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <!-- First half of the column -->
-        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock Text="apps" Foreground="White" FontWeight="Bold" FontSize="20"/>
-            <ListBox x:Name="appChecklist" Foreground="White" Background="#1E1E1E" BorderThickness="0">
-                <!-- Application checklist items -->
-                <ListBoxItem>
-                    <CheckBox Content="Google Chrome" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Mozilla Firefox" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Microsoft Edge" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Microsoft Office (Word, Excel, PowerPoint, Outlook)" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="LibreOffice" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="OpenOffice" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="VLC Media Player" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Windows Media Player" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="iTunes" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Skype" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Microsoft Teams" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Slack" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Discord" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Windows Defender (built-in on Windows)" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Avast" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="AVG" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Norton Antivirus" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="McAfee" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="WinRAR" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="7-Zip" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Adobe Acrobat Reader" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Foxit Reader" Foreground="White"/>
-                </ListBoxItem> 
-            </ListBox>
-        </StackPanel>
-        <!-- Second half of the column -->
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock Text=" " Foreground="White" FontWeight="Bold" FontSize="20"/>
-            <ListBox x:Name="appChecklist2" Foreground="White" Background="#1E1E1E" BorderThickness="0">
-                <!-- Application checklist items continued -->
-                <ListBoxItem>
-                    <CheckBox Content="Adobe Photoshop" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="GIMP" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Paint.NET" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Adobe Premiere Pro" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="DaVinci Resolve" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Dropbox" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Google Drive" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Microsoft OneDrive" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Visual Studio Code" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Sublime Text" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Atom" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Git" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="CCleaner" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="Evernote" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="TeamViewer" Foreground="White"/>
-                </ListBoxItem> 
-                <ListBoxItem>
-                    <CheckBox Content="WinZip" Foreground="White"/>
-                </ListBoxItem> 
-            </ListBox>
-            <!-- Add StackPanel for buttons -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button x:Name="ClearAppSelectionButton" Content="Clear Selection" Margin="10"/>
-                <Button x:Name="InstallUpdateButton" Content="Install/Update" Margin="10"/>
-                <Button Content="Uninstall" Margin="10"/>
-            </StackPanel>
-        </StackPanel>
-    </Grid>
-</Border>
+                <!-- Applications Panel -->
+                <Border Grid.Column="1" CornerRadius="10" Background="#1F1F1F" Margin="10" BorderBrush="Red" BorderThickness="2">
+                    <StackPanel>
+                        <TextBlock Text="Applications" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ListBox Grid.Column="0" x:Name="AppList1" Background="#1F1F1F" Foreground="White" BorderThickness="0">
+                                <ListBoxItem><CheckBox Content="Google Chrome" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Mozilla Firefox" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Microsoft Edge" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Microsoft Office" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="LibreOffice" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="OpenOffice" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="VLC Media Player" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Windows Media Player" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="iTunes" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Skype" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Microsoft Teams" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Slack" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Discord" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Windows Defender (built-in on Windows)" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Avast" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="AVG" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Norton Antivirus" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="McAfee" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="WinRAR" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="7-Zip" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Adobe Acrobat Reader" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Foxit Reader" Foreground="White"/></ListBoxItem> 
+                            </ListBox>
+                            <ListBox Grid.Column="1" x:Name="AppList2" Background="#1F1F1F" Foreground="White" BorderThickness="0">
+                                <!-- Application checklist items continued -->
+                                <ListBoxItem><CheckBox Content="Adobe Photoshop" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="GIMP" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Paint.NET" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Adobe Premiere Pro" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="DaVinci Resolve" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Dropbox" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Google Drive" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Microsoft OneDrive" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Visual Studio Code" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Sublime Text" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Atom" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Git" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="CCleaner" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="Evernote" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="TeamViewer" Foreground="White"/></ListBoxItem> 
+                                <ListBoxItem><CheckBox Content="WinZip" Foreground="White"/></ListBoxItem> 
+                            </ListBox>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                            <Button x:Name="ClearAppSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                            <Button x:Name="InstallUpdateButton" Content="Install/Update" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
-
-
-
-                <!-- Third column -->
-                <Border Grid.Column="2" BorderBrush="White" BorderThickness="1" Background="#1E1E1E">
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock Text="Uninstall" Foreground="White" FontWeight="Bold" FontSize="20"/>
-						
-						
+                <!-- Uninstall Panel -->
+                <Border Grid.Column="2" CornerRadius="10" Background="#1F1F1F" Margin="10" BorderBrush="Red" BorderThickness="2">
+                    <StackPanel>
+                        <TextBlock Text="Uninstall" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
+                        <ListBox x:Name="UninstallList" Background="#1F1F1F" Foreground="White" BorderThickness="0">
+                            <ListBoxItem><CheckBox Content="Remove Old Backups" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Uninstall Unused Apps" Foreground="White"/></ListBoxItem>
+                        </ListBox>
+                        <Button Content="Uninstall Selected" Width="180" Margin="10" Background="Red" Foreground="Black" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </Grid>
+
+            <!-- Footer with Progress Bar -->
+            <Grid Grid.Row="2" Background="#1A1A1A">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="CurrentTweakName" Text="Progress:" Foreground="White" Margin="10"/>
+                    <ProgressBar x:Name="TweaksProgressBar" Width="400" Height="20" Foreground="Red" Background="#121212"/>
+                    <TextBlock x:Name="ProgressText" Text="0%" Foreground="White" Margin="10"/>
+                </StackPanel>
+            </Grid>
         </Grid>
-        
-        <!-- Third Row -->
-		<Grid Grid.Row="2" Background="#2E2E2E">
-			<!-- StackPanel for progress bar and current tweak name -->
-			<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-				<!-- TextBlock for displaying the current tweak name -->
-				<TextBlock x:Name="CurrentTweakName" Text="" Foreground="White" FontSize="10" FontWeight="Bold" Margin="0,0,0,10"/>
-				<!-- ProgressBar for indicating progress -->
-				<ProgressBar x:Name="TweaksProgressBar" Width="300" Height="15" Background="#333333" Foreground="White" Value="0" Minimum="0" Maximum="100"/>
-			</StackPanel>
-		</Grid>
-
-
-    </Grid>
-</Window>
+    </Window>
 "@
 
 # Step 3: Load XAML content
@@ -349,7 +242,7 @@ function RunTweaks {
                         try {
                             Write-Host "Clearing DNS Cache..."
                             ipconfig /flushdns
-                            Start-Process -FilePath "ipconfig.exe" -ArgumentList "/flushdns" -NoNewWindow -Wait
+                            Start-Process -FilePath "ipconfig.exe" -ArgumentList "/flushdns" -NoNewWindow -Wait > $null 2>&1
                             Write-Host "DNS Cache cleared."
                         } catch {
                             Write-Host "Error clearing DNS Cache: $_"
@@ -358,7 +251,7 @@ function RunTweaks {
                     "Run Disk Clean Up" { 
                         try {
                             Write-Host "Running Disk Clean Up..."
-                            Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/sagerun:1" -NoNewWindow -Wait
+                            Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/sagerun:1" -NoNewWindow -Wait > $null 2>&1
                             Write-Host "Disk Clean Up completed."
                         } catch {
                             Write-Host "Error running Disk Clean Up: $_"
@@ -367,7 +260,7 @@ function RunTweaks {
                     "Delete Temporary Files" { 
                         try {
                             Write-Host "Deleting Temporary Files..."
-                            Remove-Item -Path "$env:TEMP\*" -Force -Recurse
+                            Remove-Item -Path "$env:TEMP\*" -Force -Recurse -ErrorAction SilentlyContinue
                             Write-Host "Temporary Files deleted."
                         } catch {
                             Write-Host "Error deleting Temporary Files: $_"
@@ -376,7 +269,7 @@ function RunTweaks {
                     "Delete System Logs" { 
                         try {
                             Write-Host "Deleting System Logs..."
-                            Get-ChildItem -Path "C:\Windows\System32\winevt\Logs" | Remove-Item -Force
+                            Get-ChildItem -Path "C:\Windows\System32\winevt\Logs" | Remove-Item -Force > $null 2>&1
                             Write-Host "System Logs deleted."
                         } catch {
                             Write-Host "Error deleting System Logs: $_"
@@ -501,10 +394,9 @@ function ClearTweaksSelection {
 $ClearSelectionButton = $UI.FindName("ClearSelectionButton")
 $ClearSelectionButton.Add_Click({ ClearTweaksSelection })
 
-# Step 8: Define the function to clear all selections in the application list
 function ClearAppSelection {
     # Retrieve the appChecklist from the UI
-    $appChecklist = $UI.FindName("appChecklist")
+    $appChecklist = $UI.FindName("AppList1")
 
     # Iterate through each item in the checklist and uncheck the CheckBox control
     foreach ($item in $appChecklist.Items) {
@@ -513,7 +405,7 @@ function ClearAppSelection {
     }
 
     # Retrieve the appChecklist2 from the UI
-    $appChecklist2 = $UI.FindName("appChecklist2")
+    $appChecklist2 = $UI.FindName("AppList2")
 
     # Iterate through each item in the checklist and uncheck the CheckBox control
     foreach ($item in $appChecklist2.Items) {
@@ -525,6 +417,7 @@ function ClearAppSelection {
 # Step 9: Assign the function to the Click event of the Clear Selection Button for the application list
 $ClearAppSelectionButton = $UI.FindName("ClearAppSelectionButton")
 $ClearAppSelectionButton.Add_Click({ ClearAppSelection })
+
 
 
 # Define the function to install/update selected applications
@@ -704,7 +597,6 @@ function InstallOrUpdateAppsWithElevation {
         Write-Host "Please check the script and try again."
     }
 }
-
 
 
 $UI.ShowDialog() | Out-Null
