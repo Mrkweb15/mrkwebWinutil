@@ -36,7 +36,7 @@ $XAML = @"
             <!-- Main Content Area -->
             <Grid Grid.Row="1" Background="#121212">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="300" />
                 </Grid.ColumnDefinitions>
@@ -59,9 +59,9 @@ $XAML = @"
                             <ListBoxItem><CheckBox Content="Disable Hibernation" Foreground="White"/></ListBoxItem>
                             <ListBoxItem><CheckBox Content="Set Display for Performance" Foreground="White"/></ListBoxItem>
                         </ListBox>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="White"/>
-                            <Button x:Name="RunTweaksButton" Content="Run Tweaks" Width="120" Margin="5" Background="Red" Foreground="White"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" >
+                            <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="100" Margin="5" Background="Red" Foreground="White"/>
+                            <Button x:Name="RunTweaksButton" Content="Run Tweaks" Width="100" Margin="5" Background="Red" Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
