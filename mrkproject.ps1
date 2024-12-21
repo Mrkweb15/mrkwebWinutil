@@ -60,8 +60,8 @@ $XAML = @"
                             <ListBoxItem><CheckBox Content="Set Display for Performance" Foreground="White"/></ListBoxItem>
                         </ListBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="Black"/>
-                            <Button x:Name="RunTweaksButton" Content="Run Tweaks" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                            <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="White"/>
+                            <Button x:Name="RunTweaksButton" Content="Run Tweaks" Width="120" Margin="5" Background="Red" Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -120,8 +120,8 @@ $XAML = @"
                             </ListBox>
                         </Grid>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <Button x:Name="ClearAppSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="Black"/>
-                            <Button x:Name="InstallUpdateButton" Content="Install/Update" Width="120" Margin="5" Background="Red" Foreground="Black"/>
+                            <Button x:Name="ClearAppSelectionButton" Content="Clear Selection" Width="120" Margin="5" Background="Red" Foreground="White"/>
+                            <Button x:Name="InstallUpdateButton" Content="Install/Update" Width="120" Margin="5" Background="Red" Foreground="White"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -134,7 +134,7 @@ $XAML = @"
                             <ListBoxItem><CheckBox Content="Remove Old Backups" Foreground="White"/></ListBoxItem>
                             <ListBoxItem><CheckBox Content="Uninstall Unused Apps" Foreground="White"/></ListBoxItem>
                         </ListBox>
-                        <Button Content="Uninstall Selected" Width="180" Margin="10" Background="Red" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Button Content="Uninstall Selected" Width="180" Margin="10" Background="Red" Foreground="White" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </Grid>
