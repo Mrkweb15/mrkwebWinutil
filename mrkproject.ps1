@@ -631,7 +631,7 @@ function InstallOrUpdateAppsWithElevation {
 $Activator1Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/Activate.cmd"
 $Activator2Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/windows_activator.cmd"
 
-# Function to download and run a .cmd file from GitHub
+# Function to download and run a .cmd file
 function RunActivatorFromGitHub {
     param (
         [string]$url,
@@ -651,19 +651,15 @@ function RunActivatorFromGitHub {
 }
 
 # Button click functions
-function RunActivatorScript1 {
-    RunActivatorFromGitHub -url $Activator1Url -fileName "Activate.cmd"
-}
+function RunActivatorScript1 { RunActivatorFromGitHub -url $Activator1Url -fileName "Activate.cmd" }
+function RunActivatorScript2 { RunActivatorFromGitHub -url $Activator2Url -fileName "windows_activator.cmd" }
 
-function RunActivatorScript2 {
-    RunActivatorFromGitHub -url $Activator2Url -fileName "windows_activator.cmd"
-}
-
-# Wire buttons to the functions
+# Wire buttons
 $ActivatorButton1 = $UI.FindName("ActivatorButton1")
 $ActivatorButton1.Add_Click({ RunActivatorScript1 })
 
 $ActivatorButton2 = $UI.FindName("ActivatorButton2")
 $ActivatorButton2.Add_Click({ RunActivatorScript2 })
+
 
 $UI.ShowDialog() | Out-Null
