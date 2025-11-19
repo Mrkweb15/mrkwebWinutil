@@ -627,39 +627,57 @@ function InstallOrUpdateAppsWithElevation {
     }
 }
 
-# URLs to your GitHub raw .cmd files
-$Activator1Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/Activate.cmd"
-$Activator2Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/windows_activator.cmd"
+# Define a temporary folder
+$TempFolder = Join-Path -Path $env:TEMP -ChildPath "mrkWinutil"
+if (-not (Test-Path $TempFolder)) {
+    New-Item -Path $TempFolder -ItemType Directory | Out-Null
+}
 
-# Function to download and run a .cmd file
-function RunActivatorFromGitHub {
+# Function to run a script from temp folder, downloading it if missing
+function RunScriptFromTemp {
     param (
-        [string]$url,
-        [string]$fileName
+        [string]$FileName,
+        [string]$GitHubRawUrl
     )
 
-    # Save to temporary folder
-    $tempPath = Join-Path -Path $env:TEMP -ChildPath $fileName
+    $FilePath = Join-Path -Path $TempFolder -ChildPath $FileName
 
+    # Download if file doesn't exist
+    if (-not (Test-Path $FilePath)) {
+        try {
+            Invoke-WebRequest -Uri $GitHubRawUrl -OutFile $FilePath -UseBasicParsing
+        } catch {
+            [System.Windows.MessageBox]::Show("Failed to download $FileName`n$_", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
+            return
+        }
+    }
+
+    # Run the script
     try {
-        Invoke-WebRequest -Uri $url -OutFile $tempPath -UseBasicParsing
-        Start-Process -FilePath $tempPath -WorkingDirectory $env:TEMP -Wait
-        [System.Windows.MessageBox]::Show("$fileName executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
+        Start-Process -FilePath $FilePath -WorkingDirectory $TempFolder -Wait
+        [System.Windows.MessageBox]::Show("$FileName executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
     } catch {
-        [System.Windows.MessageBox]::Show("Failed to run $fileName.`n$($_.Exception.Message)", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
+        [System.Windows.MessageBox]::Show("Failed to run $FileName`n$_", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
     }
 }
 
-# Button click functions
-function RunActivatorScript1 { RunActivatorFromGitHub -url $Activator1Url -fileName "Activate.cmd" }
-function RunActivatorScript2 { RunActivatorFromGitHub -url $Activator2Url -fileName "windows_activator.cmd" }
+# Function for Activate.cmd
+function RunActivatorScript1 {
+    RunScriptFromTemp -FileName "Activate.cmd" -GitHubRawUrl "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/Activate.cmd"
+}
 
-# Wire buttons
+# Function for windows_activator.cmd
+function RunActivatorScript2 {
+    RunScriptFromTemp -FileName "windows_activator.cmd" -GitHubRawUrl "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/windows_activator.cmd"
+}
+
+# Hook up buttons
 $ActivatorButton1 = $UI.FindName("ActivatorButton1")
 $ActivatorButton1.Add_Click({ RunActivatorScript1 })
 
 $ActivatorButton2 = $UI.FindName("ActivatorButton2")
 $ActivatorButton2.Add_Click({ RunActivatorScript2 })
+
 
 
 $UI.ShowDialog() | Out-Null
