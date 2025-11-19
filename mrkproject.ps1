@@ -70,7 +70,6 @@ $XAML = @"
                 <Border Grid.Column="1" CornerRadius="10" Background="#1F1F1F" Margin="10" BorderBrush="Red" BorderThickness="2">
                     <StackPanel>
                         <TextBlock Text="Applications" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
-						<TextBlock Text="This part is currently under development at the moment" Foreground="White" Margin="5" TextWrapping="Wrap"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -127,45 +126,17 @@ $XAML = @"
                     </StackPanel>
                 </Border>
 
-                <!-- Uninstall & Activator Panels (separate, equal height) -->
-				<StackPanel Grid.Column="2" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-
-					<!-- Top: Uninstall Panel -->
-					<Border Background="#1F1F1F" BorderBrush="Red" BorderThickness="2" CornerRadius="10" Margin="0,0,0,10" Height="150">
-						<StackPanel>
-							<TextBlock Text="Uninstall" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
-							<ListBox x:Name="UninstallList" Background="#1F1F1F" Foreground="White" BorderThickness="0">
-								<ListBoxItem><CheckBox Content="Remove Old Backups" Foreground="White"/></ListBoxItem>
-								<ListBoxItem><CheckBox Content="Uninstall Unused Apps" Foreground="White"/></ListBoxItem>
-							</ListBox>
-							<Button x:Name="UninstallButton" Content="Uninstall Selected" Width="180" Margin="10" Background="Red" Foreground="White" HorizontalAlignment="Center"/>
-						</StackPanel>
-					</Border>
-
-					<!-- Middle: Activator Panel -->
-					<Border Background="#2A2A2A" BorderBrush="Red" BorderThickness="2" CornerRadius="10" Margin="0,0,0,10" Height="150">
-						<StackPanel>
-							<TextBlock Text="Activators" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
-							<TextBlock Text="Activator Panel: Run scripts to activate MS Office or Windows." Foreground="White" Margin="5" TextWrapping="Wrap"/>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-								<Button x:Name="ActivatorButton1" Content="Run Activator 1" Width="120" Margin="5" Background="Red" Foreground="White"/>
-								<Button x:Name="ActivatorButton2" Content="Run Activator 2" Width="120" Margin="5" Background="Red" Foreground="White"/>
-							</StackPanel>
-						</StackPanel>
-					</Border>
-
-					<!-- Bottom: EULA Panel -->
-					<Border Background="#2A2A2A" BorderBrush="Red" BorderThickness="2" CornerRadius="10" Height="240">
-						<StackPanel>
-							<TextBlock Text="Important" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
-							<TextBlock Text="This script is free and open source. You can check the script directly and see exactly what is being executed during runtime. Use it at your own risk the author is not responsible for any errors or issues that may occur while running this script." Foreground="White" Margin="5" TextWrapping="Wrap"/>
-							<TextBlock Text="If you use this script or any part of it in your own projects, please credit the original author, Mr. K." Foreground="White" Margin="5" TextWrapping="Wrap"/>
-							<TextBlock Text="You can view or download the full script here: github.com/Mrkweb15/mrkwebWinutil" Foreground="White" Margin="5" TextWrapping="Wrap"/>
-						</StackPanel>
-					</Border>
-
-				</StackPanel>
-
+                <!-- Uninstall Panel -->
+                <Border Grid.Column="2" CornerRadius="10" Background="#1F1F1F" Margin="10" BorderBrush="Red" BorderThickness="2">
+                    <StackPanel>
+                        <TextBlock Text="Uninstall" Foreground="Red" FontWeight="Bold" FontSize="18" Margin="10"/>
+                        <ListBox x:Name="UninstallList" Background="#1F1F1F" Foreground="White" BorderThickness="0">
+                            <ListBoxItem><CheckBox Content="Remove Old Backups" Foreground="White"/></ListBoxItem>
+                            <ListBoxItem><CheckBox Content="Uninstall Unused Apps" Foreground="White"/></ListBoxItem>
+                        </ListBox>
+                        <Button Content="Uninstall Selected" Width="180" Margin="10" Background="Red" Foreground="White" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
             </Grid>
 
             <!-- Footer with Progress Bar -->
@@ -626,58 +597,6 @@ function InstallOrUpdateAppsWithElevation {
         Write-Host "Please check the script and try again."
     }
 }
-
-# Define a temporary folder
-$TempFolder = Join-Path -Path $env:TEMP -ChildPath "mrkWinutil"
-if (-not (Test-Path $TempFolder)) {
-    New-Item -Path $TempFolder -ItemType Directory | Out-Null
-}
-
-# Function to run a script from temp folder, downloading it if missing
-function RunScriptFromTemp {
-    param (
-        [string]$FileName,
-        [string]$GitHubRawUrl
-    )
-
-    $FilePath = Join-Path -Path $TempFolder -ChildPath $FileName
-
-    # Download if file doesn't exist
-    if (-not (Test-Path $FilePath)) {
-        try {
-            Invoke-WebRequest -Uri $GitHubRawUrl -OutFile $FilePath -UseBasicParsing
-        } catch {
-            [System.Windows.MessageBox]::Show("Failed to download $FileName`n$_", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
-            return
-        }
-    }
-
-    # Run the script
-    try {
-        Start-Process -FilePath $FilePath -WorkingDirectory $TempFolder -Wait
-        [System.Windows.MessageBox]::Show("$FileName executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
-    } catch {
-        [System.Windows.MessageBox]::Show("Failed to run $FileName`n$_", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
-    }
-}
-
-# Function for Activate.cmd
-function RunActivatorScript1 {
-    RunScriptFromTemp -FileName "Activate.cmd" -GitHubRawUrl "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/Activate.cmd"
-}
-
-# Function for windows_activator.cmd
-function RunActivatorScript2 {
-    RunScriptFromTemp -FileName "windows_activator.cmd" -GitHubRawUrl "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/windows_activator.cmd"
-}
-
-# Hook up buttons
-$ActivatorButton1 = $UI.FindName("ActivatorButton1")
-$ActivatorButton1.Add_Click({ RunActivatorScript1 })
-
-$ActivatorButton2 = $UI.FindName("ActivatorButton2")
-$ActivatorButton2.Add_Click({ RunActivatorScript2 })
-
 
 
 $UI.ShowDialog() | Out-Null
