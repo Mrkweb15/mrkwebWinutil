@@ -627,35 +627,43 @@ function InstallOrUpdateAppsWithElevation {
     }
 }
 
-# Function to run Activate.cmd
+# URLs to your GitHub raw .cmd files
+$Activator1Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/Activate.cmd"
+$Activator2Url = "https://raw.githubusercontent.com/Mrkweb15/mrkwebWinutil/main/windows_activator.cmd"
+
+# Function to download and run a .cmd file from GitHub
+function RunActivatorFromGitHub {
+    param (
+        [string]$url,
+        [string]$fileName
+    )
+
+    # Save to temporary folder
+    $tempPath = Join-Path -Path $env:TEMP -ChildPath $fileName
+
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $tempPath -UseBasicParsing
+        Start-Process -FilePath $tempPath -WorkingDirectory $env:TEMP -Wait
+        [System.Windows.MessageBox]::Show("$fileName executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
+    } catch {
+        [System.Windows.MessageBox]::Show("Failed to run $fileName.`n$($_.Exception.Message)", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
+    }
+}
+
+# Button click functions
 function RunActivatorScript1 {
-    $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "Activate.cmd"
-    if (Test-Path $scriptPath) {
-        Start-Process -FilePath $scriptPath -WorkingDirectory $PSScriptRoot -Wait
-        [System.Windows.MessageBox]::Show("Activate.cmd executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
-    } else {
-        [System.Windows.MessageBox]::Show("Activate.cmd not found!", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
-    }
+    RunActivatorFromGitHub -url $Activator1Url -fileName "Activate.cmd"
 }
 
-# Function to run windows_activator.cmd
 function RunActivatorScript2 {
-    $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "windows_activator.cmd"
-    if (Test-Path $scriptPath) {
-        Start-Process -FilePath $scriptPath -WorkingDirectory $PSScriptRoot -Wait
-        [System.Windows.MessageBox]::Show("windows_activator.cmd executed.", "Info", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
-    } else {
-        [System.Windows.MessageBox]::Show("windows_activator.cmd not found!", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
-    }
+    RunActivatorFromGitHub -url $Activator2Url -fileName "windows_activator.cmd"
 }
 
-
-
+# Wire buttons to the functions
 $ActivatorButton1 = $UI.FindName("ActivatorButton1")
 $ActivatorButton1.Add_Click({ RunActivatorScript1 })
 
 $ActivatorButton2 = $UI.FindName("ActivatorButton2")
 $ActivatorButton2.Add_Click({ RunActivatorScript2 })
-
 
 $UI.ShowDialog() | Out-Null
